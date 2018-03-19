@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour {
 
+	int level;
+
 	// Use this for initialization
 	void Start () {
 		ShowMainMenu();
@@ -22,10 +24,24 @@ public class Hacker : MonoBehaviour {
 
 	void OnUserInput (string input) {
 		if (input == "1") {
-			print("You chose level one");
+			level = 1;
+			StartGame();
+		} else if (input == "2") {
+			level = 2;
+			StartGame();
+		} else if (input == "3") {
+			level = 3;
+			StartGame();
 		} else if (input == "menu") {
+			level = 0;
 			ShowMainMenu();
+		} else {
+			Terminal.WriteLine("Invalid input. Please try again.");
 		}
+	}
+
+	void StartGame(){
+		Terminal.WriteLine("You have chosen level " + level);
 	}
 	
 	// Update is called once per frame
