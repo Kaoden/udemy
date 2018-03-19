@@ -7,6 +7,9 @@ public class Hacker : MonoBehaviour {
 	int level;
 	enum Screen { MainMenu, Password, Win }
 	Screen currentScreen;
+	string levelOnePassword = "Hurf";
+	string levelTwoPassword = "Durf";
+	string levelThreePassword = "HurfDurf";
 
 	// Use this for initialization
 	void Start () {
@@ -29,8 +32,20 @@ public class Hacker : MonoBehaviour {
 		if (input == "menu") {
 			level = 0;
 			ShowMainMenu();
-		} 
-		
+		} else if (currentScreen == Screen.Password) {
+			CheckPassword(input);
+		} else if (currentScreen == Screen.MainMenu) {
+			RunMainMenu(input);	
+		}
+	}
+
+	void StartGame(){
+		currentScreen = Screen.Password;
+		Terminal.WriteLine("You have chosen level " + level);
+		Terminal.WriteLine("Please enter the password:");
+	}
+
+	void RunMainMenu(string input) {
 		if (input == "1") {
 			level = 1;
 			StartGame();
@@ -45,9 +60,22 @@ public class Hacker : MonoBehaviour {
 		}
 	}
 
-	void StartGame(){
-		currentScreen = Screen.Password;
-		Terminal.WriteLine("You have chosen level " + level);
+	void CheckPassword(string password) {
+		string result = "Incorrect password"; // result will be updated if the answer is correct
+		if (level == 1 && password == "Hurf"){
+			result = "Correct!";
+			currentScreen = Screen.Win;
+		}
+		if (level == 2 && password == "Durf"){
+			result = "Correct!";
+			currentScreen = Screen.Win;
+		}
+		if (level == 3 && password == "HurfDurf"){
+			result = "Correct!";
+			currentScreen = Screen.Win;
+		}
+
+		Terminal.WriteLine(result);
 	}
 	
 	// Update is called once per frame
