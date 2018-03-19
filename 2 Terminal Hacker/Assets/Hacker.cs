@@ -32,10 +32,10 @@ public class Hacker : MonoBehaviour {
 		if (input == "menu") {
 			level = 0;
 			ShowMainMenu();
-		} else if (currentScreen == Screen.Password) {
-			CheckPassword(input);
 		} else if (currentScreen == Screen.MainMenu) {
 			RunMainMenu(input);	
+		} else if (currentScreen == Screen.Password) {
+			CheckPassword(input);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class Hacker : MonoBehaviour {
 	}
 
 	void CheckPassword(string password) {
-		string result = "Incorrect password"; // result will be updated if the answer is correct
+		string result = "Incorrect password, try again."; // result will be updated if the answer is correct
 		if (level == 1 && password == "Hurf"){
 			result = "Correct!";
 			currentScreen = Screen.Win;
