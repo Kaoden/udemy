@@ -6,13 +6,11 @@ public class Hacker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		var greeting = "Hello Kevin";
-		ShowMainMenu(greeting);
+		ShowMainMenu();
 	}
 
-	void ShowMainMenu (string greeting) {
+	void ShowMainMenu () {
 		Terminal.ClearScreen();
-		Terminal.WriteLine(greeting);
 		Terminal.WriteLine("What would you like to hack into?");
 		Terminal.WriteLine("");
 		Terminal.WriteLine("Press 1 for the local library");
@@ -23,7 +21,11 @@ public class Hacker : MonoBehaviour {
 	}
 
 	void OnUserInput (string input) {
-		
+		if (input == "1") {
+			print("You chose level one");
+		} else if (input == "menu") {
+			ShowMainMenu();
+		}
 	}
 	
 	// Update is called once per frame
