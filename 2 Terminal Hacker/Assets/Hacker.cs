@@ -45,13 +45,13 @@ public class Hacker : MonoBehaviour {
 		Terminal.ClearScreen();
 		switch(level){
 			case 1:
-				password = levelOnePasswords[0];
+				password = levelOnePasswords[Random.Range(0, levelOnePasswords.Length)];
 				break;
 			case 2:
-				password = levelTwoPasswords[0];
+				password = levelTwoPasswords[Random.Range(0, levelTwoPasswords.Length)];
 				break;
 			case 3:
-				password = levelThreePasswords[0];
+				password = levelThreePasswords[Random.Range(0, levelThreePasswords.Length)];
 				break;
 			default:
 				Debug.LogError("Invalid level number.");
@@ -71,21 +71,31 @@ public class Hacker : MonoBehaviour {
 	}
 
 	void CheckPassword(string input) {
-		string result = "Incorrect password, try again."; // result will be updated if the answer is correct
-		if (level == 1 && input == password){
-			result = "Correct!";
-			currentScreen = Screen.Win;
+		if (input == password){
+			DisplayWinScreen();
+		} else {
+			Terminal.WriteLine("Sorry, wrong password.");
 		}
-		if (level == 2 && input == password){
-			result = "Correct!";
-			currentScreen = Screen.Win;
-		}
-		if (level == 3 && input == password){
-			result = "Correct!";
-			currentScreen = Screen.Win;
-		}
+	}
 
-		Terminal.WriteLine(result);
+	void DisplayWinScreen(){
+		currentScreen = Screen.Win;
+		Terminal.ClearScreen();
+		ShowLevelReward();
+	}
+
+	void ShowLevelReward(){
+		switch(level){
+			case 1:
+				Terminal.WriteLine("You beat level 1");
+				break;
+			case 2:
+				Terminal.WriteLine("You beat level 2");
+				break;
+			case 3:
+				Terminal.WriteLine("You beat level 3");
+				break;
+		}
 	}
 	
 	// Update is called once per frame
