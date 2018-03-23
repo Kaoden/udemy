@@ -7,9 +7,10 @@ public class Hacker : MonoBehaviour {
 	int level;
 	enum Screen { MainMenu, Password, Win }
 	Screen currentScreen;
-	string levelOnePassword = "Hurf";
-	string levelTwoPassword = "Durf";
-	string levelThreePassword = "HurfDurf";
+	string[] levelOnePasswords = {"books", "aisle", "shelf", "password", "font", "borrow"};
+	string[] levelTwoPasswords = {"prisoner", "handcuffs", "holster", "uniform", "arrest"};
+	string[] levelThreePasswords = {"starfield", "telescope", "environment", "exploration", "astronauts"};
+	string password;
 
 	// Use this for initialization
 	void Start () {
@@ -41,36 +42,45 @@ public class Hacker : MonoBehaviour {
 
 	void StartGame(){
 		currentScreen = Screen.Password;
-		Terminal.WriteLine("You have chosen level " + level);
+		Terminal.ClearScreen();
+		switch(level){
+			case 1:
+				password = levelOnePasswords[0];
+				break;
+			case 2:
+				password = levelTwoPasswords[0];
+				break;
+			case 3:
+				password = levelThreePasswords[0];
+				break;
+			default:
+				Debug.LogError("Invalid level number.");
+				break;
+		}
 		Terminal.WriteLine("Please enter the password:");
 	}
 
 	void RunMainMenu(string input) {
-		if (input == "1") {
-			level = 1;
-			StartGame();
-		} else if (input == "2") {
-			level = 2;
-			StartGame();
-		} else if (input == "3") {
-			level = 3;
+		bool isValidLevelNumber = (input == "1" || input == "2" || input == "3");
+		if (isValidLevelNumber) {
+			level = int.Parse(input);
 			StartGame();
 		} else {
 			Terminal.WriteLine("Invalid input. Please try again.");
 		}
 	}
 
-	void CheckPassword(string password) {
+	void CheckPassword(string input) {
 		string result = "Incorrect password, try again."; // result will be updated if the answer is correct
-		if (level == 1 && password == "Hurf"){
+		if (level == 1 && input == password){
 			result = "Correct!";
 			currentScreen = Screen.Win;
 		}
-		if (level == 2 && password == "Durf"){
+		if (level == 2 && input == password){
 			result = "Correct!";
 			currentScreen = Screen.Win;
 		}
-		if (level == 3 && password == "HurfDurf"){
+		if (level == 3 && input == password){
 			result = "Correct!";
 			currentScreen = Screen.Win;
 		}
